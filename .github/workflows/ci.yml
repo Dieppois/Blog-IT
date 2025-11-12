@@ -5,6 +5,7 @@ on:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+  workflow_dispatch: 
 
 jobs:
   build:
@@ -15,15 +16,19 @@ jobs:
       - name: Checkout du dépôt
         uses: actions/checkout@v4
 
-      - name: Installer Pandoc
+      - name: Mettre à jour le système et installer Pandoc
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc
 
-
       - name: Construire le site statique
         run: |
           python3 scripts/build.py
+
+      - name: Vérifier le contenu du dossier généré
+        run: |
+          echo "📂 Contenu du dossier site/"
+          ls -R site || echo "⚠️ Aucun fichier trouvé dans site/"
 
       - name: Archiver le site généré
         uses: actions/upload-artifact@v4
@@ -41,9 +46,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: site
+          path: .
 
       - name: Vérifier la présence du fichier index.html
         run: |
+          echo "📁 Contenu du workspace après téléchargement :"
+          ls -R .
+          echo "🔎 Vérification du fichier site/index.html"
           test -f site/index.html && echo "✅ Build OK" || (echo "❌ Fichier manquant" && exit 1)
 
   deploy:
