@@ -2,7 +2,7 @@ name: CI/CD Blog IT
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master ]  # ta branche principale
   pull_request:
     branches: [ master ]
   workflow_dispatch:
@@ -16,20 +16,34 @@ jobs:
       - name: Checkout du dépôt
         uses: actions/checkout@v4
 
+      # Installer Node.js pour Tailwind
+      - name: Installer Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # Installer Tailwind CSS et ses dépendances
+      - name: Installer Tailwind CSS
+        run: |
+          npm install -D tailwindcss postcss autoprefixer
+          npx tailwindcss init
+
+      # Installer Pandoc pour la conversion Markdown → HTML
       - name: Installer Pandoc
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc
 
+      # Générer le site via build.py
       - name: Construire le site statique
-        run: |
-          python3 scripts/build.py
+        run: python3 scripts/build.py
 
-      - name: Vérifier le contenu du dossier généré
+      # Compiler Tailwind CSS en style.css
+      - name: Compiler Tailwind CSS
         run: |
-          echo "📂 Contenu du dossier site/"
-          ls -R site || echo "⚠️ Aucun fichier trouvé dans site/"
+          npx tailwindcss -i ./styles/tailwind.css -o ./site/style.css --minify
 
+      # Archiver le site généré pour le job test/deploy
       - name: Archiver le site généré
         uses: actions/upload-artifact@v4
         with:
@@ -46,12 +60,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: site
-          path: site  # ✅ place les fichiers dans un dossier "site"
+          path: site
 
       - name: Vérifier la présence du fichier index.html
         run: |
           echo "📁 Contenu du dossier site/ après téléchargement :"
-          ls -R site || echo "⚠️ Aucun fichier trouvé dans site/"
+          ls -R site
           echo "🔎 Vérification du fichier site/index.html"
           test -f site/index.html && echo "✅ Build OK" || (echo "❌ Fichier manquant" && exit 1)
 
@@ -59,7 +73,7 @@ jobs:
     name: 🚀 Deploy
     runs-on: ubuntu-latest
     needs: test
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master'  # Déploiement uniquement sur master
 
     steps:
       - name: Checkout du dépôt
@@ -74,5 +88,5 @@ jobs:
       - name: Déploiement sur GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          personal_token: ${{ secrets.GH_PAT }}
+          personal_token: ${{ secrets.GH_PAT }}  # Ton token PAT avec scope repo
           publish_dir: ./site
