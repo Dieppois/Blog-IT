@@ -40,20 +40,21 @@ jobs:
     name: ✅ Test
     runs-on: ubuntu-latest
     needs: build
-
+  
     steps:
       - name: Télécharger le site généré
         uses: actions/download-artifact@v4
         with:
           name: site
-          path: .
-
+          path: site
+  
       - name: Vérifier la présence du fichier index.html
         run: |
-          echo "📁 Contenu du workspace après téléchargement :"
-          ls -R .
+          echo "📁 Contenu du dossier site/ après téléchargement :"
+          ls -R site || echo "⚠️ Aucun fichier trouvé dans site/"
           echo "🔎 Vérification du fichier site/index.html"
           test -f site/index.html && echo "✅ Build OK" || (echo "❌ Fichier manquant" && exit 1)
+
 
   deploy:
     name: 🚀 Deploy
