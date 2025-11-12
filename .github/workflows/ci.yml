@@ -16,37 +16,17 @@ jobs:
       - name: Checkout du dépôt
         uses: actions/checkout@v4
 
-      # Installer Node.js pour Tailwind
-      - name: Installer Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      # Initialiser un projet Node pour npm
-      - name: Initialiser Node.js (package.json)
-        run: npm init -y
-
-      # Installer Tailwind CSS
-      - name: Installer Tailwind CSS
-        run: |
-          npm install -D tailwindcss postcss autoprefixer
-          npx tailwindcss init
-
-      # Installer Pandoc pour convertir Markdown → HTML
       - name: Installer Pandoc
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc
-
-      # Construire le site via build.py
       - name: Construire le site statique
-        run: python3 scripts/build.py
-
-      # Compiler Tailwind CSS en site/style.css
-      - name: Compiler Tailwind CSS
-        run: npx tailwindcss -i ./styles/tailwind.css -o ./site/style.css --minify
-
-      # Archiver le site pour les jobs suivants
+        run: |
+          python3 scripts/build.py
+      - name: Vérifier le contenu du dossier généré
+        run: |
+          echo "📂 Contenu du dossier site/"
+          ls -R site || echo "⚠️ Aucun fichier trouvé dans site/"
       - name: Archiver le site généré
         uses: actions/upload-artifact@v4
         with:
@@ -63,20 +43,19 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: site
-          path: site
+          path: site  # ✅ place les fichiers dans un dossier "site"
 
       - name: Vérifier la présence du fichier index.html
         run: |
           echo "📁 Contenu du dossier site/ après téléchargement :"
-          ls -R site
+          ls -R site || echo "⚠️ Aucun fichier trouvé dans site/"
           echo "🔎 Vérification du fichier site/index.html"
           test -f site/index.html && echo "✅ Build OK" || (echo "❌ Fichier manquant" && exit 1)
-
   deploy:
     name: 🚀 Deploy
     runs-on: ubuntu-latest
     needs: test
-    if: github.ref == 'refs/heads/master'  # Déploiement uniquement depuis master
+    if: github.ref == 'refs/heads/master'
 
     steps:
       - name: Checkout du dépôt
@@ -91,5 +70,5 @@ jobs:
       - name: Déploiement sur GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          personal_token: ${{ secrets.GH_PAT }}  # Ton token PAT avec scope repo
+          personal_token: ${{ secrets.GH_PAT }}
           publish_dir: ./site
