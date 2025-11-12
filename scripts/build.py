@@ -1,40 +1,66 @@
 import os
-import glob
 import subprocess
 
+# Dossiers
 ARTICLES_DIR = "articles"
 SITE_DIR = "site"
-TEMPLATE = "templates/article_template.html"
+TEMPLATE_FILE = "templates/article_template.html"
 
+# Crée le dossier site si nécessaire
 os.makedirs(SITE_DIR, exist_ok=True)
 
-# Charger le template HTML
-with open(TEMPLATE, "r", encoding="utf-8") as f:
-    template = f.read()
+# Lister tous les fichiers Markdown
+md_files = [f for f in os.listdir(ARTICLES_DIR) if f.endswith(".md")]
 
-index_content = "<h1>Blog IT - Contributions</h1>\n<ul>"
+# Stocker les liens pour index.html
+article_links = []
 
-# Conversion de chaque article
-for md_file in glob.glob(f"{ARTICLES_DIR}/*.md"):
-    base = os.path.basename(md_file).replace(".md", "")
-    html_file = f"{SITE_DIR}/{base}.html"
+for md_file in md_files:
+    md_path = os.path.join(ARTICLES_DIR, md_file)
+    html_filename = md_file.replace(".md", ".html")
+    html_path = os.path.join(SITE_DIR, html_filename)
 
-    subprocess.run(["pandoc", md_file, "-o", html_file])
+    # Convertir Markdown en HTML brut avec Pandoc
+    result = subprocess.run(
+        ["pandoc", md_path, "-t", "html"],
+        capture_output=True,
+        text=True
+    )
+    html_content = result.stdout
 
-    # Injecter le contenu dans le template
-    with open(html_file, "r", encoding="utf-8") as f:
-        article_html = f.read()
+    # Lire le template
+    with open(TEMPLATE_FILE, "r") as f:
+        template = f.read()
 
-    final_html = template.replace("{{content}}", article_html)
-    with open(html_file, "w", encoding="utf-8") as f:
+    # Insérer le contenu de l'article dans le template
+    final_html = template.replace("{{ content }}", html_content)
+
+    # Sauvegarder le HTML final
+    with open(html_path, "w") as f:
         f.write(final_html)
 
-    index_content += f'<li><a href="{base}.html">{base}</a></li>\n'
+    # Ajouter le lien pour index.html
+    title = md_file.replace(".md", "").replace("-", " ").title()
+    article_links.append(f'<li><a href="{html_filename}">{title}</a></li>')
 
-index_content += "</ul>"
+# Générer index.html
+index_html = f"""
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Blog-IT</title>
+</head>
+<body>
+    <h1>Blog-IT</h1>
+    <ul>
+        {''.join(article_links)}
+    </ul>
+</body>
+</html>
+"""
 
-# Générer la page d'accueil
-with open(f"{SITE_DIR}/index.html", "w", encoding="utf-8") as f:
-    f.write(index_content)
+with open(os.path.join(SITE_DIR, "index.html"), "w") as f:
+    f.write(index_html)
 
 print("✅ Site généré avec succès !")
