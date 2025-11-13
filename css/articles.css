@@ -6,13 +6,15 @@ articles {
 
 articles h1, articles h2, articles h3 {
   color: #fff;
-  margin-top: 1.5rem;
-  margin-bottom: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 3rem;
 }
 
 articles p {
   margin-bottom: 1rem;
   color: #d4d4d4;
+  font-size: 1rem;
 }
 
 articles ul, articles ol {
