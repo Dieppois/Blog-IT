@@ -47,7 +47,7 @@ for md_file in md_files:
     snippet = html_content[:200] + "..." if len(html_content) > 200 else html_content
 
     preview_html = f"""
-    <div class="bg-[#171717] border border-neutral-800 rounded-2xl p-6 hover:border-[#ff6900] transition">
+    <div class="bg-[#171717] border border-neutral-800 rounded-2xl p-6 hover:border-[#e5e5e5] transition">
         <h2 class="text-xl font-bold text-white mb-3">{title}</h2>
         <div class="text-[#a1a1a1] overflow-hidden max-h-40">
             {snippet}
