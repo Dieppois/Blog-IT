@@ -36,12 +36,11 @@ for md_file in md_files:
         f.write(final_html)
 
     # Ajouter le lien pour index.html
-    article_links.append(f'<li><a class="text-blue-600 hover:underline" href="{html_filename}">{title}</a></li>')
+    article_links.append(f'<li><a class="text-neutral-100" href="{html_filename}">{title}</a></li>')
 
 # Générer index.html
 index_content = f"""
-<h2 class="text-2xl font-bold mb-4">Articles récents</h2>
-<ul class="space-y-2 bg-white">
+<ul class="space-y-2 bg-neutral-900 border border-neutral-800 rounded-lg p-6">
     {''.join(article_links)}
 </ul>
 """
