@@ -37,7 +37,7 @@ for md_file in md_files:
     final_html = template.replace(
         "{{ title }}", title
     ).replace(
-        "{{ content }}", f"<articles class='prose prose-invert max-w-4xl mx-auto'>{html_content}</articles>"
+        "{{ content }}", f"<articles class='bg-[#171717] border border-neutral-800 rounded-2xl p-6 max-w-4xl mx-auto'>{html_content}</articles>"
     )
 
     with open(html_path, "w") as f:
@@ -47,28 +47,28 @@ for md_file in md_files:
     snippet = html_content[:200] + "..." if len(html_content) > 200 else html_content
 
     preview_html = f"""
-<article class="bg-[#171717] border border-neutral-800 rounded-2xl p-6 hover:border-[#ff6900] transition">
-    <h2 class="text-xl font-bold text-white mb-3">{title}</h2>
-    <div class="text-[#a1a1a1] overflow-hidden max-h-40">
-        {snippet}
-    </div>
-    <a href="{html_filename}" class="inline-block bg-[#e5e5e5] text-black px-4 py-2 rounded-lg mt-4 font-semibold hover:bg-white transition">
-        Lire la suite →
-    </a>
-</article>
-"""
+    <article class="bg-[#171717] border border-neutral-800 rounded-2xl p-6 hover:border-[#ff6900] transition">
+        <h2 class="text-xl font-bold text-white mb-3">{title}</h2>
+        <div class="text-[#a1a1a1] overflow-hidden max-h-40">
+            {snippet}
+        </div>
+        <a href="{html_filename}" class="inline-block bg-[#e5e5e5] text-black px-4 py-2 rounded-lg mt-4 font-semibold hover:bg-white transition">
+            Lire la suite →
+        </a>
+    </article>
+    """
     articles_html_for_index.append(preview_html)
 
-# --- Générer la home page ---
-index_content = "\n".join(articles_html_for_index)
+    # --- Générer la home page ---
+    index_content = "\n".join(articles_html_for_index)
 
-index_html = template.replace(
-    "{{ title }}", "Blog-IT"
-).replace(
-    "{{ content }}", index_content  # pas de <articles> autour pour éviter imbriquement
-)
+    index_html = template.replace(
+        "{{ title }}", "Blog-IT"
+    ).replace(
+        "{{ content }}", index_content
+    )
 
-with open(os.path.join(SITE_DIR, "index.html"), "w") as f:
-    f.write(index_html)
+    with open(os.path.join(SITE_DIR, "index.html"), "w") as f:
+        f.write(index_html)
 
-print("✅ Site généré ! Home avec cards et pages articles individuelles.")
+    print("✅ Site généré ! Home avec cards et pages articles individuelles.")

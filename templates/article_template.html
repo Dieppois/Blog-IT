@@ -5,7 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>{{ title }}</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="../css/article.css" rel="stylesheet">
+    <link href="../css/articles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
@@ -38,10 +38,8 @@
         </section>
 
         <!-- Section Articles -->
-        <section class="mb-12 text-neutral-100">
-          <articles class="grid grid-cols-3 gap-6 prose prose-invert max-w-none">
+        <section class="mb-12 text-neutral-100 grid grid-cols-3 gap-6">
             {{ content }}
-          </articles>
         </section>
       </main>
 
