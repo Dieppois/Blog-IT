@@ -7,15 +7,25 @@ TEMPLATE_FILE = "templates/article_template.html"
 
 os.makedirs(SITE_DIR, exist_ok=True)
 
+# Charger le template HTML principal
+with open(TEMPLATE_FILE, "r") as f:
+    template = f.read()
+
+# Lister tous les fichiers Markdown
 md_files = [f for f in os.listdir(ARTICLES_DIR) if f.endswith(".md")]
-article_links = []
+
+# Stocker le HTML de tous les articles pour la home
+articles_html_for_index = []
 
 for md_file in md_files:
     md_path = os.path.join(ARTICLES_DIR, md_file)
     html_filename = md_file.replace(".md", ".html")
     html_path = os.path.join(SITE_DIR, html_filename)
 
-    # Convertir Markdown en HTML
+    # Titre d’article propre
+    title = md_file.replace(".md", "").replace("-", " ").title()
+
+    # Convertir Markdown -> HTML
     result = subprocess.run(
         ["pandoc", md_path, "-t", "html"],
         capture_output=True,
@@ -23,33 +33,44 @@ for md_file in md_files:
     )
     html_content = result.stdout
 
-    # Lire le template
-    with open(TEMPLATE_FILE, "r") as f:
-        template = f.read()
+    # --- Vue individuelle de l’article ---
+    final_html = (
+        template
+        .replace("{{ title }}", title)
+        .replace("{{ content }}", html_content)
+    )
 
-    # Remplacer {{ title }} et {{ content }}
-    title = md_file.replace(".md", "").replace("-", " ").title()
-    final_html = template.replace("{{ title }}", title).replace("{{ content }}", html_content)
-
-    # Sauvegarder le HTML final
     with open(html_path, "w") as f:
         f.write(final_html)
 
-    # Ajouter le lien pour index.html
-    article_links.append(f'<li><a class="text-neutral-100" href="{html_filename}">{title}</a></li>')
+    # --- Extrait pour la page d’accueil ---
+    preview_html = f"""
+    <article class="bg-white dark:bg-background-dark/50 rounded-lg p-6 shadow-sm hover:shadow-lg transition-shadow duration-300">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+            <a href="{html_filename}" class="hover:text-primary transition-colors">{title}</a>
+        </h2>
+        <div class="prose dark:prose-invert max-w-none mb-4">
+            {html_content[:400]}...
+        </div>
+        <a href="{html_filename}" class="inline-block bg-primary text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition">
+            Lire la suite →
+        </a>
+    </article>
+    """
 
-# Générer index.html
-index_content = f"""
-<ul class="space-y-2 bg-neutral-900 border border-neutral-800 rounded-lg p-6">
-    {''.join(article_links)}
-</ul>
-"""
+    articles_html_for_index.append(preview_html)
 
-# Réutiliser le même template pour index.html
-with open(TEMPLATE_FILE, "r") as f:
-    template = f.read()
+# --- Générer la page d’accueil ---
+index_content = "\n".join(articles_html_for_index)
+
+# Remplacer dans le template
+index_html = (
+    template
+    .replace("{{ title }}", "Blog-IT")
+    .replace("{{ content }}", index_content)
+)
 
 with open(os.path.join(SITE_DIR, "index.html"), "w") as f:
-    f.write(template.replace("{{ title }}", "Blog-IT").replace("{{ content }}", index_content))
+    f.write(index_html)
 
-print("✅ Site généré avec style Tailwind !")
+print("✅ Site généré avec style Tailwind ! Les articles apparaissent sur la home.")
