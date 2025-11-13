@@ -37,7 +37,7 @@ for md_file in md_files:
     final_html = template.replace(
         "{{ title }}", title
     ).replace(
-        "{{ content }}", f"<articles class='bg-[#171717] border border-neutral-800 rounded-2xl p-6 max-w-4xl mx-auto'>{html_content}</articles>"
+        "{{ content }}", f"<articles class='bg-[#171717] col-span-full mt-12 border border-neutral-800 rounded-2xl p-6 max-w-4xl mx-auto'>{html_content}</articles>"
     )
 
     with open(html_path, "w") as f:
