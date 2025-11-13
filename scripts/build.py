@@ -45,14 +45,14 @@ for md_file in md_files:
 
     # --- Extrait pour la page d’accueil ---
     preview_html = f"""
-    <article class="bg-white dark:bg-background-dark/50 rounded-lg p-6 shadow-sm hover:shadow-lg transition-shadow duration-300">
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
-            <a href="{html_filename}" class="hover:text-primary transition-colors">{title}</a>
+    <article class="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+        <h2 class="text-2xl font-bold text-white mb-3">
+            <a href="{html_filename}">{title}</a>
         </h2>
-        <div class="prose dark:prose-invert max-w-none mb-4">
+        <div class="text-neutral-500 prose max-w-none mb-4">
             {html_content[:400]}...
         </div>
-        <a href="{html_filename}" class="inline-block bg-primary text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition">
+        <a href="{html_filename}" class="inline-block bg-neutral-500 text-white px-4 py-2 rounded-lg">
             Lire la suite →
         </a>
     </article>
