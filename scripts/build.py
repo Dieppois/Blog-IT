@@ -14,8 +14,8 @@ with open(TEMPLATE_FILE, "r") as f:
 # Lister tous les fichiers Markdown
 md_files = [f for f in os.listdir(ARTICLES_DIR) if f.endswith(".md")]
 
-# Stocker le HTML de tous les articles pour la home
-articles_html_for_index = []
+# Stocker le HTML des cards pour la page d'accueil
+cards_html = []
 
 for md_file in md_files:
     md_path = os.path.join(ARTICLES_DIR, md_file)
@@ -25,7 +25,7 @@ for md_file in md_files:
     # Titre de l’article (nom du fichier propre)
     title = md_file.replace(".md", "").replace("-", " ").title()
 
-    # Convertir Markdown → HTML
+    # Convertir Markdown -> HTML
     result = subprocess.run(
         ["pandoc", md_path, "-t", "html"],
         capture_output=True,
@@ -33,29 +33,41 @@ for md_file in md_files:
     )
     html_content = result.stdout.strip()
 
-    # 🔹 Créer la page individuelle de l’article
-    final_html = template.replace(
+    # 🔹 Générer la page individuelle de l’article
+    article_html = template.replace(
         "{{ title }}", title
     ).replace(
         "{{ content }}", f"<articles class='prose prose-invert max-w-none'>{html_content}</articles>"
     )
 
     with open(html_path, "w") as f:
-        f.write(final_html)
+        f.write(article_html)
 
-    # 🔹 Ajouter l'article complet pour la home
-    articles_html_for_index.append(html_content)
+    # 🔹 Créer la card pour la home
+    # Extrait tronqué du Markdown converti en HTML (par exemple 200 caractères)
+    snippet = html_content[:200] + "..." if len(html_content) > 200 else html_content
 
-# --- Générer la page d’accueil ---
-index_content = "\n".join(articles_html_for_index)
+    card_html = f"""
+    <div class="bg-[#171717] border border-neutral-800 rounded-2xl p-6 hover:border-neutral-700 transition">
+        <h2 class="text-2xl font-bold text-white mb-3">{title}</h2>
+        <div class="text-[#a1a1a1] mb-4">{snippet}</div>
+        <a href="{html_filename}" class="inline-block bg-[#e5e5e5] text-black px-4 py-2 rounded-lg font-semibold hover:bg-white transition">
+            Lire la suite →
+        </a>
+    </div>
+    """
+    cards_html.append(card_html)
+
+# 🔹 Générer la page d'accueil
+index_content = "\n".join(cards_html)
 
 index_html = template.replace(
     "{{ title }}", "Blog-IT"
 ).replace(
-    "{{ content }}", f"<articles class='prose prose-invert max-w-none'>\n{index_content}\n</articles>"
+    "{{ content }}", index_content
 )
 
 with open(os.path.join(SITE_DIR, "index.html"), "w") as f:
     f.write(index_html)
 
-print("✅ Site généré : tous les articles Markdown ont été convertis et stylés via <articles> !")
+print("✅ Site généré : page d'accueil avec cards et pages individuelles pour chaque article !")
