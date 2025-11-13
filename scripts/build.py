@@ -37,7 +37,7 @@ for md_file in md_files:
     article_html = template.replace(
         "{{ title }}", title
     ).replace(
-        "{{ content }}", f"<articles class='prose prose-invert max-w-none'>{html_content}</articles>"
+        "{{ content }}", f"<articles class='col-span-full prose prose-invert max-w-4xl mx-auto'>{html_content}</articles>"
     )
 
     with open(html_path, "w") as f:
