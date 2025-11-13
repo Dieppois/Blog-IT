@@ -45,16 +45,17 @@ for md_file in md_files:
 
     # --- Extrait pour la page d’accueil ---
     preview_html = f"""
-    <article class="bg-neutral-900 border border-neutral-800 rounded-lg p-6">
+    <article class="bg-[#171717] border border-neutral-800 rounded-lg p-6">
         <h2 class="text-2xl font-bold text-white mb-3">
             <a href="{html_filename}">{title}</a>
         </h2>
-        <div class="text-neutral-500 prose max-w-none mb-4">
-            {html_content[:400]}...
+        <div class="text-[#a1a1a1] prose max-w-none mb-4">
+            {html_content[:40]}...
         </div>
-        <a href="{html_filename}" class="inline-block bg-neutral-500 text-white px-4 py-2 rounded-lg">
+        <a href="{html_filename}" class="inline-block bg-[#e5e5e5] text-black px-4 py-2 rounded-lg">
             Lire la suite →
         </a>
+        
     </article>
     """
 
