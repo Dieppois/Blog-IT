@@ -1,37 +1,39 @@
-articles {
+.custom-articles {
   display: block;
   color: #e5e5e5;
   line-height: 1.7;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-articles h1, articles h2, articles h3 {
+.custom-articles h1, .custom-articles h2, .custom-articles h3 {
   color: #fff;
   margin-top: 2rem;
   margin-bottom: 2rem;
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
-articles p {
+.custom-articles p {
   margin-bottom: 1rem;
   color: #d4d4d4;
   font-size: 1rem;
 }
 
-articles ul, articles ol {
+.custom-articles ul, .custom-articles ol {
   margin-left: 1.5rem;
   margin-bottom: 1rem;
 }
 
-articles a {
+.custom-articles a {
   color: #60a5fa;
   text-decoration: none;
 }
 
-articles a:hover {
+.custom-articles a:hover {
   text-decoration: underline;
 }
 
-articles blockquote {
+.custom-articles blockquote {
   border-left: 4px solid #333;
   padding-left: 1rem;
   color: #999;
