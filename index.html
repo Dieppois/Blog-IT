@@ -37,19 +37,69 @@
         </section>
 
         <!-- Section Articles -->
-        <section class="mb-12 text-neutral-100">
-          <h3 class="text-2xl font-bold mb-6">Derniers articles</h3>
-          <div class="space-y-8 grid grid-cols-3">
+        <section class="mb-12 grid grid-cols-3 text-neutral-100">
+          <h3 class="text-2xl font-bold mb-6 col-span-3">Derniers articles</h3>
+          <div class="space-y-8">
             
-<ul class="space-y-2 bg-neutral-900 border border-neutral-800 rounded-lg p-6">
-    <li><a class="text-neutral-100" href="exemple-article.html">Exemple Article</a></li><li><a class="text-neutral-100" href="test.html">Test</a></li>
-</ul>
+    <article class="bg-white dark:bg-background-dark/50 rounded-lg p-6 shadow-sm hover:shadow-lg transition-shadow duration-300">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+            <a href="exemple-article.html" class="hover:text-primary transition-colors">Exemple Article</a>
+        </h2>
+        <div class="prose dark:prose-invert max-w-none mb-4">
+            <h1 id="titre-de-mon-nouvel-article">Titre de mon nouvel article</h1>
+<p>Voici le contenu de mon article. - Point 1 - Point 2</p>
+...
+        </div>
+        <a href="exemple-article.html" class="inline-block bg-primary text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition">
+            Lire la suite →
+        </a>
+    </article>
+    
 
+    <article class="bg-white dark:bg-background-dark/50 rounded-lg p-6 shadow-sm hover:shadow-lg transition-shadow duration-300">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+            <a href="test.html" class="hover:text-primary transition-colors">Test</a>
+        </h2>
+        <div class="prose dark:prose-invert max-w-none mb-4">
+            <h1 id="titre-article">Titre article</h1>
+<p>Voici le contenu de mon article. - Point 1 - Point 2</p>
+...
+        </div>
+        <a href="test.html" class="inline-block bg-primary text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition">
+            Lire la suite →
+        </a>
+    </article>
+    
             <!-- build.py remplacera 
-<ul class="space-y-2 bg-neutral-900 border border-neutral-800 rounded-lg p-6">
-    <li><a class="text-neutral-100" href="exemple-article.html">Exemple Article</a></li><li><a class="text-neutral-100" href="test.html">Test</a></li>
-</ul>
- par les articles HTML -->
+    <article class="bg-white dark:bg-background-dark/50 rounded-lg p-6 shadow-sm hover:shadow-lg transition-shadow duration-300">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+            <a href="exemple-article.html" class="hover:text-primary transition-colors">Exemple Article</a>
+        </h2>
+        <div class="prose dark:prose-invert max-w-none mb-4">
+            <h1 id="titre-de-mon-nouvel-article">Titre de mon nouvel article</h1>
+<p>Voici le contenu de mon article. - Point 1 - Point 2</p>
+...
+        </div>
+        <a href="exemple-article.html" class="inline-block bg-primary text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition">
+            Lire la suite →
+        </a>
+    </article>
+    
+
+    <article class="bg-white dark:bg-background-dark/50 rounded-lg p-6 shadow-sm hover:shadow-lg transition-shadow duration-300">
+        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-3">
+            <a href="test.html" class="hover:text-primary transition-colors">Test</a>
+        </h2>
+        <div class="prose dark:prose-invert max-w-none mb-4">
+            <h1 id="titre-article">Titre article</h1>
+<p>Voici le contenu de mon article. - Point 1 - Point 2</p>
+...
+        </div>
+        <a href="test.html" class="inline-block bg-primary text-white px-4 py-2 rounded-lg hover:bg-opacity-80 transition">
+            Lire la suite →
+        </a>
+    </article>
+     par les articles HTML -->
           </div>
         </section>
       </main>
