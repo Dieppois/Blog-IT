@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Cybersécurité</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <link href="../css/article.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
@@ -40,10 +40,9 @@
         <!-- Section Articles -->
         <section class="mb-12 grid grid-cols-3 text-neutral-100">
           <h3 class="text-2xl font-bold mb-6 col-span-3">Derniers articles</h3>
-          <div class="space-y-8">
+          <articles class="prose prose-invert max-w-none">
             {{ content }}
-            <!-- build.py remplacera {{ content }} par les articles HTML -->
-          </div>
+          </articles>
         </section>
       </main>
 
