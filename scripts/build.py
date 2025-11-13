@@ -41,7 +41,7 @@ for md_file in md_files:
 # Générer index.html
 index_content = f"""
 <h2 class="text-2xl font-bold mb-4">Articles récents</h2>
-<ul class="space-y-2">
+<ul class="space-y-2 bg-white">
     {''.join(article_links)}
 </ul>
 """
