@@ -4,7 +4,8 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Blog-IT</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet">
+    <link href="../css/article.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
@@ -40,64 +41,8 @@
         <section class="mb-12 grid grid-cols-3 text-neutral-100">
           <h3 class="text-2xl font-bold mb-6 col-span-3">Derniers articles</h3>
           <div class="space-y-8">
-            
-    <article class="bg-[#171717] border border-neutral-800 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-white mb-3">
-            <a href="Cybersécurité.html">Cybersécurité</a>
-        </h2>
-        <div class="text-[#a1a1a1] prose max-w-none mb-4">
-            
-...
-        </div>
-        <a href="Cybersécurité.html" class="inline-block bg-[#e5e5e5] text-black px-4 py-2 rounded-lg">
-            Lire la suite →
-        </a>
-        
-    </article>
-    
-
-    <article class="bg-[#171717] border border-neutral-800 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-white mb-3">
-            <a href="IA_générative.html">Ia_Générative</a>
-        </h2>
-        <div class="text-[#a1a1a1] prose max-w-none mb-4">
-            <h1 id="titre-de-mon-nouvel-article">Tit...
-        </div>
-        <a href="IA_générative.html" class="inline-block bg-[#e5e5e5] text-black px-4 py-2 rounded-lg">
-            Lire la suite →
-        </a>
-        
-    </article>
-    
-            <!-- build.py remplacera 
-    <article class="bg-[#171717] border border-neutral-800 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-white mb-3">
-            <a href="Cybersécurité.html">Cybersécurité</a>
-        </h2>
-        <div class="text-[#a1a1a1] prose max-w-none mb-4">
-            
-...
-        </div>
-        <a href="Cybersécurité.html" class="inline-block bg-[#e5e5e5] text-black px-4 py-2 rounded-lg">
-            Lire la suite →
-        </a>
-        
-    </article>
-    
-
-    <article class="bg-[#171717] border border-neutral-800 rounded-lg p-6">
-        <h2 class="text-2xl font-bold text-white mb-3">
-            <a href="IA_générative.html">Ia_Générative</a>
-        </h2>
-        <div class="text-[#a1a1a1] prose max-w-none mb-4">
-            <h1 id="titre-de-mon-nouvel-article">Tit...
-        </div>
-        <a href="IA_générative.html" class="inline-block bg-[#e5e5e5] text-black px-4 py-2 rounded-lg">
-            Lire la suite →
-        </a>
-        
-    </article>
-     par les articles HTML -->
+            {{ content }}
+            <!-- build.py remplacera {{ content }} par les articles HTML -->
           </div>
         </section>
       </main>
