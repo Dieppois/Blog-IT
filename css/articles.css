@@ -1,0 +1,50 @@
+articles {
+    display: block;
+    color: #e5e5e5;
+    line-height: 1.7;
+}
+
+articles h1, articles h2, articles h3 {
+    color: white;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+articles p {
+    margin-bottom: 1rem;
+}
+
+articles ul, articles ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+articles li {
+    margin-bottom: 0.5rem;
+}
+
+articles blockquote {
+    border-left: 4px solid #555;
+    padding-left: 1rem;
+    color: #aaa;
+    font-style: italic;
+}
+
+articles code {
+    background: #222;
+    color: #e5e5e5;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.3rem;
+}
+
+articles a {
+    color: #93c5fd;
+    text-decoration: underline;
+}
+
+articles hr {
+    border: 0;
+    border-top: 1px solid #333;
+    margin: 2rem 0;
+}
