@@ -2,32 +2,37 @@ import os
 import shutil
 import subprocess
 
-ARTICLES_DIR = "articles"
-SITE_DIR = "site"
-TEMPLATE_FILE = "templates/article_template.html"
-CSS_SRC = "css"
+# ----------------------------
+# Chemins absolus (fix GitHub Pages)
+# ----------------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))      # /scripts
+ROOT_DIR = os.path.dirname(BASE_DIR)                       # racine repo
+
+ARTICLES_DIR = os.path.join(ROOT_DIR, "articles")
+SITE_DIR = os.path.join(ROOT_DIR, "site")
+TEMPLATE_FILE = os.path.join(ROOT_DIR, "templates/article_template.html")
+
+CSS_SRC = os.path.join(ROOT_DIR, "css")
 CSS_DST = os.path.join(SITE_DIR, "css")
 
 # ----------------------------
 # Préparation du dossier site/
 # ----------------------------
-
-# Créer le dossier site/
 os.makedirs(SITE_DIR, exist_ok=True)
 
-# Copier le CSS (supprime l'ancien pour éviter le cache)
+# Copier le CSS proprement
 if os.path.exists(CSS_DST):
     shutil.rmtree(CSS_DST)
+
 shutil.copytree(CSS_SRC, CSS_DST)
 
-# Charger le template principal
+# Charger le template
 with open(TEMPLATE_FILE, "r") as f:
     template = f.read()
 
-# Lister tous les fichiers Markdown
+# Lister fichiers .md
 md_files = sorted([f for f in os.listdir(ARTICLES_DIR) if f.endswith(".md")])
 
-# Stocker les previews pour la home
 articles_html_for_index = []
 
 # ----------------------------
@@ -39,10 +44,9 @@ for md_file in md_files:
     html_filename = md_file.replace(".md", ".html")
     html_path = os.path.join(SITE_DIR, html_filename)
 
-    # Titre propre
     title = md_file.replace(".md", "").replace("-", " ").title()
 
-    # Conversion Markdown → HTML via Pandoc
+    # Convertir Markdown via Pandoc
     result = subprocess.run(
         ["pandoc", md_path, "-t", "html"],
         capture_output=True,
@@ -50,16 +54,14 @@ for md_file in md_files:
     )
     html_content = result.stdout.strip()
 
-    # ----------------------------
-    # Page individuelle
-    # ----------------------------
+    # Générer page article
     full_article_html = template.replace(
         "{{ title }}", title
     ).replace(
         "{{ content }}",
         f"""
         <article class="custom-article bg-[#171717] col-span-full mt-12 border border-neutral-800 
-                       rounded-2xl p-6 max-w-4xl mx-auto">
+                       rounded-2xl p-6 max-w-4xl mx-auto prose prose-invert">
             {html_content}
         </article>
         """
@@ -68,9 +70,6 @@ for md_file in md_files:
     with open(html_path, "w") as f:
         f.write(full_article_html)
 
-    # ----------------------------
-    # Preview pour la home
-    # ----------------------------
     snippet = html_content[:200] + "..." if len(html_content) > 200 else html_content
 
     preview_html = f"""
@@ -86,10 +85,11 @@ for md_file in md_files:
         </a>
     </div>
     """
+
     articles_html_for_index.append(preview_html)
 
 # ----------------------------
-# Génération de la page Home
+# Génération de la Home
 # ----------------------------
 index_content = "\n".join(articles_html_for_index)
 
@@ -107,4 +107,4 @@ index_html = template.replace(
 with open(os.path.join(SITE_DIR, "index.html"), "w") as f:
     f.write(index_html)
 
-print("✅ Site généré avec CSS, cards, pages individuelles et structure propre.")
+print("✅ Site généré avec CSS chargé correctement (fix GitHub Pages).")
