@@ -57,8 +57,8 @@ Plus de texte...
 
 Dès que votre Commit est créée :
 
-Le site est automatiquement mis à jour.
-Votre article apparaît sur la page d’accueil.
-Les lecteurs peuvent cliquer pour lire l’article complet.
-Votre article apparaît sur la page d’accueil.
-Les lecteurs peuvent cliquer pour lire l’article complet.
+- Le site est automatiquement mis à jour.
+- Votre article apparaît sur la page d’accueil.
+- Les lecteurs peuvent cliquer pour lire l’article complet.
+- Votre article apparaît sur la page d’accueil.
+- Les lecteurs peuvent cliquer pour lire l’article complet.
