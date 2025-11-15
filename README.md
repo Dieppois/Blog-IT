@@ -30,10 +30,11 @@ Plus de texte...
 📅 Novembre 2025
 💡 #tag #autreTag
 
+```
+
 2️⃣ Proposer votre article
 
 Cliquez sur Propose new file.
-
 Ensuite, cliquez sur Create pull request pour envoyer votre article au projet.
 
 3️⃣ Automatisation
@@ -41,7 +42,7 @@ Ensuite, cliquez sur Create pull request pour envoyer votre article au projet.
 Dès que votre pull request est créée et mergée :
 
 Le site est automatiquement mis à jour.
-
 Votre article apparaît sur la page d’accueil.
-
+Les lecteurs peuvent cliquer pour lire l’article complet.
+Votre article apparaît sur la page d’accueil.
 Les lecteurs peuvent cliquer pour lire l’article complet.
