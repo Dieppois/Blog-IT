@@ -43,7 +43,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: site
-          path: site  # ✅ place les fichiers dans un dossier "site"
+          path: site
 
       - name: Vérifier la présence du fichier index.html
         run: |
