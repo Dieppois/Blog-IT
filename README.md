@@ -33,7 +33,7 @@ C’est très simple ! Suivez ces étapes :
 - Allez dans le dossier `articles/` du dépôt GitHub.
 - Cliquez sur **Add file → Create new file**.
 - Nommez votre fichier avec `.md`, par exemple :
-
+- Cliquez sur Commit changes
 
 mon-article.md
 
@@ -53,14 +53,9 @@ Plus de texte...
 
 ```
 
-2️⃣ Proposer votre article
+2️⃣ Automatisation
 
-Cliquez sur Propose new file.
-Ensuite, cliquez sur Create pull request pour envoyer votre article au projet.
-
-3️⃣ Automatisation
-
-Dès que votre pull request est créée et mergée :
+Dès que votre Commit est créée :
 
 Le site est automatiquement mis à jour.
 Votre article apparaît sur la page d’accueil.
