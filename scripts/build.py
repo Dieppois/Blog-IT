@@ -1,31 +1,48 @@
 import os
+import shutil
 import subprocess
 
 ARTICLES_DIR = "articles"
 SITE_DIR = "site"
 TEMPLATE_FILE = "templates/article_template.html"
+CSS_SRC = "css"
+CSS_DST = os.path.join(SITE_DIR, "css")
 
+# ----------------------------
+# Préparation du dossier site/
+# ----------------------------
+
+# Créer le dossier site/
 os.makedirs(SITE_DIR, exist_ok=True)
 
-# Charger le template HTML principal
+# Copier le CSS (supprime l'ancien pour éviter le cache)
+if os.path.exists(CSS_DST):
+    shutil.rmtree(CSS_DST)
+shutil.copytree(CSS_SRC, CSS_DST)
+
+# Charger le template principal
 with open(TEMPLATE_FILE, "r") as f:
     template = f.read()
 
 # Lister tous les fichiers Markdown
-md_files = [f for f in os.listdir(ARTICLES_DIR) if f.endswith(".md")]
+md_files = sorted([f for f in os.listdir(ARTICLES_DIR) if f.endswith(".md")])
 
-# Stocker le HTML des previews pour la home
+# Stocker les previews pour la home
 articles_html_for_index = []
 
+# ----------------------------
+# Traitement des articles
+# ----------------------------
 for md_file in md_files:
+
     md_path = os.path.join(ARTICLES_DIR, md_file)
     html_filename = md_file.replace(".md", ".html")
     html_path = os.path.join(SITE_DIR, html_filename)
 
-    # Titre de l'article (propre)
+    # Titre propre
     title = md_file.replace(".md", "").replace("-", " ").title()
 
-    # Convertir Markdown → HTML
+    # Conversion Markdown → HTML via Pandoc
     result = subprocess.run(
         ["pandoc", md_path, "-t", "html"],
         capture_output=True,
@@ -33,17 +50,27 @@ for md_file in md_files:
     )
     html_content = result.stdout.strip()
 
-    # --- Page individuelle ---
-    final_html = template.replace(
+    # ----------------------------
+    # Page individuelle
+    # ----------------------------
+    full_article_html = template.replace(
         "{{ title }}", title
     ).replace(
-        "{{ content }}", f"<article class='custom-article bg-[#171717] col-span-full mt-12 border border-neutral-800 rounded-2xl p-6 max-w-4xl mx-auto'>{html_content}</article>"
+        "{{ content }}",
+        f"""
+        <article class="custom-article bg-[#171717] col-span-full mt-12 border border-neutral-800 
+                       rounded-2xl p-6 max-w-4xl mx-auto">
+            {html_content}
+        </article>
+        """
     )
 
     with open(html_path, "w") as f:
-        f.write(final_html)
+        f.write(full_article_html)
 
-    # --- Générer preview pour la home ---
+    # ----------------------------
+    # Preview pour la home
+    # ----------------------------
     snippet = html_content[:200] + "..." if len(html_content) > 200 else html_content
 
     preview_html = f"""
@@ -52,23 +79,32 @@ for md_file in md_files:
         <div class="text-[#a1a1a1] overflow-hidden max-h-40">
             {snippet}
         </div>
-        <a href="{html_filename}" class="inline-block bg-[#e5e5e5] text-black px-4 py-2 rounded-lg mt-4 font-semibold hover:bg-white transition">
+        <a href="{html_filename}"
+           class="inline-block bg-[#e5e5e5] text-black px-4 py-2 rounded-lg mt-4 
+                  font-semibold hover:bg-white transition">
             Lire la suite →
         </a>
     </div>
     """
     articles_html_for_index.append(preview_html)
 
-    # --- Générer la home page ---
-    index_content = "\n".join(articles_html_for_index)
+# ----------------------------
+# Génération de la page Home
+# ----------------------------
+index_content = "\n".join(articles_html_for_index)
 
-    index_html = template.replace(
-        "{{ title }}", "Blog-IT"
-    ).replace(
-        "{{ content }}", index_content
-    )
+index_html = template.replace(
+    "{{ title }}", "Blog-IT"
+).replace(
+    "{{ content }}",
+    f"""
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+        {index_content}
+    </section>
+    """
+)
 
-    with open(os.path.join(SITE_DIR, "index.html"), "w") as f:
-        f.write(index_html)
+with open(os.path.join(SITE_DIR, "index.html"), "w") as f:
+    f.write(index_html)
 
-    print("✅ Site généré ! Home avec cards et pages articles individuelles.")
+print("✅ Site généré avec CSS, cards, pages individuelles et structure propre.")
