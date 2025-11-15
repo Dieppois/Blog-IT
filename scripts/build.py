@@ -81,7 +81,7 @@ for md_file in md_files:
         <a href="{html_filename}"
            class="inline-block bg-[#e5e5e5] text-black px-4 py-2 rounded-lg mt-4 
                   font-semibold hover:bg-white transition">
-            Lire la suite →
+            Lire la suite
         </a>
     </div>
     """
@@ -98,7 +98,7 @@ index_html = template.replace(
 ).replace(
     "{{ content }}",
     f"""
-    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+    <section class="mt-12">
         {index_content}
     </section>
     """
