@@ -1,0 +1,41 @@
+.custom-article {
+  display: block;
+  color: #e5e5e5;
+  line-height: 1.7;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.custom-article h1, .custom-article h2, .custom-article h3 {
+  color: #fff;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 2.5rem;
+}
+
+.custom-article p {
+  margin-bottom: 1rem;
+  color: #d4d4d4;
+  font-size: 1rem;
+}
+
+.custom-article ul, .custom-article ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.custom-article a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+.custom-article a:hover {
+  text-decoration: underline;
+}
+
+.custom-article blockquote {
+  border-left: 4px solid #333;
+  padding-left: 1rem;
+  color: #999;
+  font-style: italic;
+}
