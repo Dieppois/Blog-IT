@@ -4,8 +4,10 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Iot</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="../css/articles.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/articles.css?v=1">
+
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
@@ -16,11 +18,9 @@
 
   <body class="bg-[#0a0a0a] text-neutral-100 tracking-tight">
     <div class="min-h-screen">
-      <!-- Header -->
-      <header class="sticky top-0 z-10">
-        <div class="container mx-auto px-8">
 
-          <!-- Navigation -->
+      <header class="sticky top-0 z-10 bg-[#0a0a0a]/90 backdrop-blur">
+        <div class="container mx-auto px-8">
           <nav class="flex items-center justify-start">
             <a class="px-3 py-3 text-base font-medium text-neutral-100" href="index.html">Accueil</a>
             <a class="px-3 py-3 text-base font-medium text-neutral-100" href="#">Articles</a>
@@ -29,19 +29,17 @@
         </div>
       </header>
 
-      <!-- Main Content -->
       <main class="container mx-auto px-8 py-8">
-        <!-- Hero -->
+
         <section class="text-center mb-24 mt-12">
           <h2 class="text-5xl font-medium text-neutral-100 mb-4">Explore IT. Make it yours.</h2>
           <p class="text-lg text-neutral-400">Read, learn, and share hand-picked insights and tutorials from the IT world.</p>
         </section>
 
-        <!-- Section Articles -->
         <section class="mb-12 text-neutral-100 grid lg:grid-cols-3 gap-6">
-            
+          
         <article class="custom-article bg-[#171717] col-span-full mt-12 border border-neutral-800 
-                       rounded-2xl p-6 max-w-4xl mx-auto">
+                       rounded-2xl p-6 max-w-4xl mx-auto prose prose-invert">
             <h1 id="linternet-des-objets-iot-connecter-le-monde">🌐 L’Internet des
 objets (IoT) : connecter le monde</h1>
 <p>L’<strong>Internet des objets (IoT)</strong> transforme notre
@@ -90,14 +88,15 @@ connecter des informations pour mieux comprendre et agir.”</p>
         </article>
         
         </section>
+
       </main>
 
-      <!-- Footer -->
       <footer class="mt-12 py-6">
         <div class="container mx-auto px-4 text-center text-neutral-500 text-sm">
           <p>© 2025 Blog-IT. Tous droits réservés.</p>
         </div>
       </footer>
+
     </div>
   </body>
 </html>
