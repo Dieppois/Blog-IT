@@ -20,13 +20,16 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y pandoc
+
       - name: Construire le site statique
         run: |
-          python3 scripts/build.py
+          python3 scripts/build.py   # <-- OK maintenant grâce aux chemins absolus
+
       - name: Vérifier le contenu du dossier généré
         run: |
           echo "📂 Contenu du dossier site/"
           ls -R site || echo "⚠️ Aucun fichier trouvé dans site/"
+
       - name: Archiver le site généré
         uses: actions/upload-artifact@v4
         with:
@@ -48,9 +51,9 @@ jobs:
       - name: Vérifier la présence du fichier index.html
         run: |
           echo "📁 Contenu du dossier site/ après téléchargement :"
-          ls -R site || echo "⚠️ Aucun fichier trouvé dans site/"
-          echo "🔎 Vérification du fichier site/index.html"
+          ls -R site
           test -f site/index.html && echo "✅ Build OK" || (echo "❌ Fichier manquant" && exit 1)
+
   deploy:
     name: 🚀 Deploy
     runs-on: ubuntu-latest
