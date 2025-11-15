@@ -2,7 +2,7 @@
 
 Le **Cloud Computing** révolutionne la manière dont les entreprises et les particuliers utilisent la technologie. En déplaçant les ressources informatiques vers Internet, le cloud offre **flexibilité, évolutivité et accessibilité**.
 
-(https://ior-system.com/wp-content/uploads/2024/01/edgeComputing-scaled-1.webp)
+![](https://ior-system.com/wp-content/uploads/2024/01/edgeComputing-scaled-1.webp)
 
 ## Qu’est-ce que le Cloud Computing ?
 
