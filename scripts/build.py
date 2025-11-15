@@ -98,7 +98,7 @@ index_html = template.replace(
 ).replace(
     "{{ content }}",
     f"""
-    <section class="mt-12">
+    <section class="mt-12 grid lg:grid-cols-3 gap-6">
         {index_content}
     </section>
     """
