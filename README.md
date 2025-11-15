@@ -41,7 +41,9 @@ mon-article.md
 ```markdown
 # Titre de l'article
 
-Votre texte ici...
+Votre images ici...
+![](l'url de votre image exemple : ![Chat mignon](https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg)
+)
 
 ## Sous-titre
 
